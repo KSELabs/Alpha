@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/nav_status"
+    android:icon="@drawable/ic_filter_tilt_shift_black_24dp"
+    android:title="Status"
+    />
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_menu_black_24dp"
+        android:title="Home"
+        />
+
+    <item
+        android:id="@+id/nav_preview"
+        android:icon="@drawable/ic_remove_red_eye_black_24dp"
+        android:title="Preview"
+        />
+</menu>
