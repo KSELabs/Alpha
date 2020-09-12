@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
+//This is the adapter for the items in the recycler view found in the Home fragment
 public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
 
 
@@ -31,6 +31,7 @@ public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tvName.setText(arrayListMember.get(position));
+
     }
 
     @Override

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFrag = null;
-
+                    //Here we're  switching between fragments on our bottom navigation view
                     switch (item.getItemId()){
                         case R.id.nav_status:
                             selectedFrag = new StatusFrag();
