@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
+//This is the adapter for the Categories in the recycler view found in the Home fragment
 public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
     private Activity activity;
     ArrayList<String> arrayListGroup;
