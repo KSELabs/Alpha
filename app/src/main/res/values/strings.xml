@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Alpha</string>
     <string name="item_description">Item Description</string>
+    <string name="item_Name">Item Name</string>
     <string name="price">Price</string>
     <string name="save">Save</string>
     <string name="close">Close</string>
