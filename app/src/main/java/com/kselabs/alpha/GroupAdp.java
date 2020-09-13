@@ -57,7 +57,7 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
 
         ArrayList<Item> arrayListMember = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {
-            arrayListMember.add(new Item("Item " + i, 12.00));
+            arrayListMember.add(new Item("Item Description " ,12.00, "Item" + i +" Title"));
         }
         getArrayListGroup().get(position).setItems(arrayListMember);
         MemberAdp adapterMember = new MemberAdp(arrayListMember);
@@ -67,12 +67,7 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
         holder.rvMember.setLayoutManager(linearLayoutManager);
 
         holder.rvMember.setAdapter(adapterMember);
-        holder.rvMember.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("Hello");
-            }
-        });
+
 
     }
 
@@ -82,12 +77,13 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName;
+        TextView tvName, tvTitle;
         RecyclerView rvMember;
 
         public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
+            tvTitle = itemView.findViewById(R.id.tv_name2);
             rvMember = itemView.findViewById(R.id.rv_member);
 
             itemView.setOnClickListener(new View.OnClickListener() {

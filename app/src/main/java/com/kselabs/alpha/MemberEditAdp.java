@@ -37,6 +37,7 @@ public class MemberEditAdp extends RecyclerView.Adapter<MemberEditAdp.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.etItemDescription.setText(arrayListMember.get(position).getStrDescription());
         holder.etPrice.setText(String.valueOf(arrayListMember.get(position).getDblPrice()));
+        holder.etTitle.setText(String.valueOf(arrayListMember.get(position).getStrTitle()));
 
     }
 
@@ -46,13 +47,14 @@ public class MemberEditAdp extends RecyclerView.Adapter<MemberEditAdp.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        EditText etItemDescription ,etPrice;
+        EditText etItemDescription ,etPrice, etTitle;
         ImageView ivLogo;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             etItemDescription = itemView.findViewById(R.id.et_item_description);
             etPrice = itemView.findViewById(R.id.et_price);
             ivLogo = itemView.findViewById(R.id.iv_logo);
+            etTitle = itemView.findViewById(R.id.et_item_title);
         }
     }
 }

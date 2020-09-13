@@ -33,6 +33,7 @@ public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tvName.setText(arrayListMember.get(position).getStrDescription());
+        holder.tvName.setText(arrayListMember.get(position).getStrDescription());
 
     }
 
@@ -43,9 +44,11 @@ public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
+        TextView tvTitle;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
+            tvTitle = itemView.findViewById(R.id.tv_name);
         }
     }
 }
