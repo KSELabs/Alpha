@@ -5,12 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kselabs.alpha.objects.Item;
+import com.kselabs.alpha.objects.ListItem;
 
 import java.util.ArrayList;
 
@@ -18,9 +17,9 @@ import java.util.ArrayList;
 public class MemberEditAdp extends RecyclerView.Adapter<MemberEditAdp.ViewHolder> {
 
 
-    ArrayList<Item> arrayListMember;
+    ArrayList<ListItem> arrayListMember;
 
-    public MemberEditAdp(ArrayList<Item> arrayListMember){
+    public MemberEditAdp(ArrayList<ListItem> arrayListMember){
         this.arrayListMember = arrayListMember;
 
     }

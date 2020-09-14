@@ -4,26 +4,24 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kselabs.alpha.objects.Category;
-import com.kselabs.alpha.objects.Item;
+import com.kselabs.alpha.objects.CategoryItem;
+import com.kselabs.alpha.objects.ListItem;
 
 import java.util.ArrayList;
 
 //This is the adapter for the Categories in the recycler view found in the Home fragment
 public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
     private Activity activity;
-    ArrayList<Category> arrayListGroup;
+    ArrayList<CategoryItem> arrayListGroup;
 
-    public ArrayList<Category> getArrayListGroup() {
+    public ArrayList<CategoryItem> getArrayListGroup() {
         return arrayListGroup;
     }
 
@@ -37,7 +35,7 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
         this.listener = listener;
     }
 
-    public GroupAdp(Activity activity, ArrayList<Category> arrayListGroup) {
+    public GroupAdp(Activity activity, ArrayList<CategoryItem> arrayListGroup) {
         this.activity = activity;
         this.arrayListGroup = arrayListGroup;
     }
@@ -55,11 +53,11 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tvName.setText(arrayListGroup.get(position).getStrCatName());
 
-        ArrayList<Item> arrayListMember = new ArrayList<>();
+        ArrayList<ListItem> arrayListMember = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {
-            arrayListMember.add(new Item("Item Description " ,12.00, "Item" + i +" Title"));
+            arrayListMember.add(new ListItem("ListItem Description " ,12.00, "ListItem" + i +" Title"));
         }
-        getArrayListGroup().get(position).setItems(arrayListMember);
+        getArrayListGroup().get(position).setListItems(arrayListMember);
         MemberAdp adapterMember = new MemberAdp(arrayListMember);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
@@ -79,14 +77,17 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvTitle;
         RecyclerView rvMember;
+        public ImageView iv_edit;
+
 
         public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
             tvTitle = itemView.findViewById(R.id.tv_name2);
             rvMember = itemView.findViewById(R.id.rv_member);
+            iv_edit = itemView.findViewById(R.id.iv_edit);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            iv_edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {

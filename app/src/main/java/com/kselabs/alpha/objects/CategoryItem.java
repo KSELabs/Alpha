@@ -2,11 +2,11 @@ package com.kselabs.alpha.objects;
 
 import java.util.ArrayList;
 
-public class Category {
+public class CategoryItem {
     private String strCatName;
-    private ArrayList<Item> items;
+    private ArrayList<ListItem> ListItems;
 
-    public Category(String strCatName) {
+    public CategoryItem(String strCatName) {
         this.strCatName = strCatName;
     }
 
@@ -18,11 +18,11 @@ public class Category {
         this.strCatName = strCatName;
     }
 
-    public ArrayList<Item> getItems() {
-        return items;
+    public ArrayList<ListItem> getListItems() {
+        return ListItems;
     }
 
-    public void setItems(ArrayList<Item> items) {
-        this.items = items;
+    public void setListItems(ArrayList<ListItem> listItems) {
+        this.ListItems = listItems;
     }
 }

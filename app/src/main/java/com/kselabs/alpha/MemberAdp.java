@@ -8,16 +8,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kselabs.alpha.objects.Item;
+import com.kselabs.alpha.objects.ListItem;
 
 import java.util.ArrayList;
 //This is the adapter for the items in the recycler view found in the Home fragment
 public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
 
 
-    ArrayList<Item> arrayListMember;
+    ArrayList<ListItem> arrayListMember;
 
-    public MemberAdp(ArrayList<Item> arrayListMember){
+    public MemberAdp(ArrayList<ListItem> arrayListMember){
         this.arrayListMember = arrayListMember;
 
     }

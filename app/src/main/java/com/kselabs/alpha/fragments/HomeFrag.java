@@ -10,11 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -24,17 +20,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kselabs.alpha.GroupAdp;
 import com.kselabs.alpha.MemberEditAdp;
 import com.kselabs.alpha.R;
-import com.kselabs.alpha.objects.Category;
-import com.kselabs.alpha.objects.Item;
+import com.kselabs.alpha.objects.CategoryItem;
+import com.kselabs.alpha.objects.ListItem;
 
 import java.util.ArrayList;
 
 public class HomeFrag extends Fragment {
-    RecyclerView groups;
-    ArrayList<Category> arrayListGroup;
-    LinearLayoutManager layoutManager;
-    GroupAdp groupAdp;
-
+    private RecyclerView groups;
+    private ArrayList<CategoryItem> arrayListGroup;
+    private LinearLayoutManager layoutManager;
+    private GroupAdp groupAdp;
     private Dialog popupDialog;
 
     @Nullable
@@ -46,7 +41,7 @@ public class HomeFrag extends Fragment {
         groups = v.findViewById(R.id.recycleView);
         arrayListGroup = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
-            arrayListGroup.add(new Category("Category " + i));
+            arrayListGroup.add(new CategoryItem("CategoryItem " + i));
         }
 
         groupAdp = new GroupAdp((Activity) getContext(), arrayListGroup);
@@ -78,14 +73,14 @@ public class HomeFrag extends Fragment {
         RecyclerView items = popupDialog.findViewById(R.id.rv_member);
         Button bSave = popupDialog.findViewById(R.id.b_save);
 
-        ArrayList<Item> itemsArrayListGroup;
+        ArrayList<ListItem> itemsArrayListGroup;
         LinearLayoutManager itemsLayoutManager;
         MemberEditAdp itemsAdp;
         itemsArrayListGroup = new ArrayList<>();
 
         tvName.setText(arrayListGroup.get(position).getStrCatName());
         for (int i = 1; i <= 10; i++) {
-            itemsArrayListGroup = arrayListGroup.get(position).getItems();     //Add all items from the category into the popup items
+            itemsArrayListGroup = arrayListGroup.get(position).getListItems();     //Add all items from the category into the popup items
         }
 
         itemsAdp = new MemberEditAdp(itemsArrayListGroup);

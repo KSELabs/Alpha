@@ -1,6 +1,6 @@
 package com.kselabs.alpha.objects;
 
-public class Item {
+public class ListItem {
     private String strDescription;
     private String strTitle;
     private Double dblPrice;
@@ -13,7 +13,7 @@ public class Item {
         this.strTitle = strTitle;
     }
 
-    public Item(String strDescription, Double dblPrice, String strTitle) {
+    public ListItem(String strDescription, Double dblPrice, String strTitle) {
         this.strDescription = strDescription;
         this.dblPrice = dblPrice;
         this.strTitle = strTitle;
