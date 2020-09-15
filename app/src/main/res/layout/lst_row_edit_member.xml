@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="86dp"
         android:layout_marginStart="4dp"
+        android:background="@drawable/ripple_effect_white"
         android:layout_marginLeft="4dp"
-        android:background="@color/colorAccent"
         android:src="@mipmap/ic_launcher_round" />
 
     <LinearLayout

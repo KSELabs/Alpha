@@ -68,15 +68,15 @@ public class HomeFrag extends Fragment {
     /**
      * responsible for displaying the popup for Editing items in a category
      *
-     * @param position
+     * @param position position
      */
-    private void showEditCategoryPopup(int position) {
+    private void showEditCategoryPopup(final int position) {
         popupDialog.setContentView(R.layout.edit_category_popup);
         ImageView ivClose = popupDialog.findViewById(R.id.iv_close);
         TextView tvName = popupDialog.findViewById(R.id.tv_name);
-        RecyclerView items = popupDialog.findViewById(R.id.rv_member);
+        final RecyclerView items = popupDialog.findViewById(R.id.rv_member);
         Button bSave = popupDialog.findViewById(R.id.b_save);
-        FloatingActionButton fabAddItem = popupDialog.findViewById(R.id.fab_AddItem);
+        final FloatingActionButton fabAddItem = popupDialog.findViewById(R.id.fab_AddItem);
 
         LinearLayoutManager itemsLayoutManager;
         final MemberEditAdpt itemsAdp;
@@ -92,10 +92,11 @@ public class HomeFrag extends Fragment {
         items.setLayoutManager(itemsLayoutManager);
         items.setAdapter(itemsAdp);
 
+        checkItems(fabAddItem);
         fabAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddNewItem(new ListItem("", "", 0.0), itemsAdp);
+                addNewItem(new ListItem("", "", 0.0), itemsAdp, fabAddItem, items);
             }
         });
         ivClose.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +108,8 @@ public class HomeFrag extends Fragment {
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                arrayListGroup.get(position).setListItems(itemsArrayListGroup);
+                groupAdp.notifyItemChanged(position);
                 popupDialog.dismiss();
             }
         });
@@ -115,9 +118,28 @@ public class HomeFrag extends Fragment {
 
     }
 
-    private void AddNewItem(ListItem listItem, MemberEditAdpt itemsAdp) {
+    /**
+     * Adding New Item to the popup
+     *
+     * @param listItem edit list
+     * @param itemsAdp edit adapter
+     */
+    private void addNewItem(ListItem listItem, MemberEditAdpt itemsAdp, FloatingActionButton fabAddItem, RecyclerView items) {
         itemsArrayListGroup.add(listItem);
         itemsAdp.notifyItemInserted(itemsArrayListGroup.size());
+        items.scrollToPosition(itemsArrayListGroup.size() - 1);
+        checkItems(fabAddItem);
+    }
+
+    /**
+     * Check if Items Are equals to 10 to limit user's ability to add more
+     *
+     * @param fabAddItem floating action button
+     */
+    private void checkItems(FloatingActionButton fabAddItem) {
+        if (itemsArrayListGroup.size() == 10) {
+            fabAddItem.setVisibility(View.GONE);
+        }
     }
 
 }
