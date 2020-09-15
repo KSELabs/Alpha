@@ -14,12 +14,12 @@ import com.kselabs.alpha.objects.ListItem;
 import java.util.ArrayList;
 
 //This is the adapter for the items in the recycler view found in the Home fragment
-public class MemberEditAdp extends RecyclerView.Adapter<MemberEditAdp.ViewHolder> {
+public class MemberEditAdpt extends RecyclerView.Adapter<MemberEditAdpt.ViewHolder> {
 
 
     ArrayList<ListItem> arrayListMember;
 
-    public MemberEditAdp(ArrayList<ListItem> arrayListMember){
+    public MemberEditAdpt(ArrayList<ListItem> arrayListMember){
         this.arrayListMember = arrayListMember;
 
     }

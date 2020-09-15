@@ -11,29 +11,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kselabs.alpha.objects.ListItem;
 
 import java.util.ArrayList;
+
 //This is the adapter for the items in the recycler view found in the Home fragment
 public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
 
-
     ArrayList<ListItem> arrayListMember;
 
-    public MemberAdp(ArrayList<ListItem> arrayListMember){
+    public MemberAdp(ArrayList<ListItem> arrayListMember) {
         this.arrayListMember = arrayListMember;
-
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.lst_row_member, parent,false);
+                .inflate(R.layout.lst_row_member, parent, false);
         return new MemberAdp.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvName.setText(arrayListMember.get(position).getStrDescription());
-        holder.tvName.setText(arrayListMember.get(position).getStrDescription());
+        holder.tvTitle.setText(arrayListMember.get(position).getStrTitle());
+        holder.tvDescription.setText(arrayListMember.get(position).getStrDescription());
+        holder.tvPrice.setText(String.valueOf(arrayListMember.get(position).getDblPrice()));
 
     }
 
@@ -43,12 +43,13 @@ public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName;
-        TextView tvTitle;
+        TextView tvTitle,tvDescription, tvPrice;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tv_name);
-            tvTitle = itemView.findViewById(R.id.tv_name);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvDescription = itemView.findViewById(R.id.tv_description);
+            tvPrice = itemView.findViewById(R.id.tv_price);
         }
     }
 }

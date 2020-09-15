@@ -6,9 +6,11 @@
     android:padding="2dp">
 
     <ImageView
+        android:id="@+id/iv_logo"
         android:layout_width="88dp"
         android:layout_height="95dp"
         android:layout_marginStart="24dp"
+        android:contentDescription="@string/app_name"
         android:layout_marginLeft="24dp"
         android:background="@color/colorAccent"
         android:src="@mipmap/ic_launcher" />
@@ -19,19 +21,16 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_name2"
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:text="Item title"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#000"/>
         <TextView
-            android:id="@+id/tv_name3"
+            android:id="@+id/tv_description"
             android:layout_width="230dp"
-            android:text="This is the item description"
-
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
@@ -39,7 +38,7 @@
             android:textColor="@color/colorAccent" />
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_price"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

@@ -55,7 +55,7 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
 
         ArrayList<ListItem> arrayListMember = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {
-            arrayListMember.add(new ListItem("ListItem Description " ,12.00, "ListItem" + i +" Title"));
+            arrayListMember.add(new ListItem("ListItem" + i + " Title", "ListItem Description ", 12.00));
         }
         getArrayListGroup().get(position).setListItems(arrayListMember);
         MemberAdp adapterMember = new MemberAdp(arrayListMember);
@@ -83,7 +83,7 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
         public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
-            tvTitle = itemView.findViewById(R.id.tv_name2);
+            tvTitle = itemView.findViewById(R.id.tv_title);
             rvMember = itemView.findViewById(R.id.rv_member);
             iv_edit = itemView.findViewById(R.id.iv_edit);
 
@@ -92,7 +92,7 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
                 public void onClick(View v) {
                     if (listener != null) {
                         int position = getAdapterPosition();
-                        if (position!=RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             listener.onItemClick(position);
                         }
                     }

@@ -11,14 +11,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kselabs.alpha.GroupAdp;
-import com.kselabs.alpha.MemberEditAdp;
+import com.kselabs.alpha.MemberEditAdpt;
 import com.kselabs.alpha.R;
 import com.kselabs.alpha.objects.CategoryItem;
 import com.kselabs.alpha.objects.ListItem;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 public class HomeFrag extends Fragment {
     private RecyclerView groups;
     private ArrayList<CategoryItem> arrayListGroup;
+    private ArrayList<ListItem> itemsArrayListGroup;
     private LinearLayoutManager layoutManager;
     private GroupAdp groupAdp;
     private Dialog popupDialog;
@@ -64,6 +67,7 @@ public class HomeFrag extends Fragment {
 
     /**
      * responsible for displaying the popup for Editing items in a category
+     *
      * @param position
      */
     private void showEditCategoryPopup(int position) {
@@ -72,10 +76,10 @@ public class HomeFrag extends Fragment {
         TextView tvName = popupDialog.findViewById(R.id.tv_name);
         RecyclerView items = popupDialog.findViewById(R.id.rv_member);
         Button bSave = popupDialog.findViewById(R.id.b_save);
+        FloatingActionButton fabAddItem = popupDialog.findViewById(R.id.fab_AddItem);
 
-        ArrayList<ListItem> itemsArrayListGroup;
         LinearLayoutManager itemsLayoutManager;
-        MemberEditAdp itemsAdp;
+        final MemberEditAdpt itemsAdp;
         itemsArrayListGroup = new ArrayList<>();
 
         tvName.setText(arrayListGroup.get(position).getStrCatName());
@@ -83,11 +87,17 @@ public class HomeFrag extends Fragment {
             itemsArrayListGroup = arrayListGroup.get(position).getListItems();     //Add all items from the category into the popup items
         }
 
-        itemsAdp = new MemberEditAdp(itemsArrayListGroup);
+        itemsAdp = new MemberEditAdpt(itemsArrayListGroup);
         itemsLayoutManager = new LinearLayoutManager(getContext());
         items.setLayoutManager(itemsLayoutManager);
         items.setAdapter(itemsAdp);
 
+        fabAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddNewItem(new ListItem("", "", 0.0), itemsAdp);
+            }
+        });
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,6 +113,11 @@ public class HomeFrag extends Fragment {
         popupDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupDialog.show();
 
+    }
+
+    private void AddNewItem(ListItem listItem, MemberEditAdpt itemsAdp) {
+        itemsArrayListGroup.add(listItem);
+        itemsAdp.notifyItemInserted(itemsArrayListGroup.size());
     }
 
 }

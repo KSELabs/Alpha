@@ -1,8 +1,8 @@
 package com.kselabs.alpha.objects;
 
 public class ListItem {
-    private String strDescription;
     private String strTitle;
+    private String strDescription;
     private Double dblPrice;
 
     public String getStrTitle() {
@@ -13,10 +13,10 @@ public class ListItem {
         this.strTitle = strTitle;
     }
 
-    public ListItem(String strDescription, Double dblPrice, String strTitle) {
+    public ListItem(String strTitle, String strDescription, Double dblPrice) {
+        this.strTitle = strTitle;
         this.strDescription = strDescription;
         this.dblPrice = dblPrice;
-        this.strTitle = strTitle;
     }
 
     public String getStrDescription() {
