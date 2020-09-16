@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kselabs.alpha.GroupAdp;
-import com.kselabs.alpha.MemberEditAdpt;
+import com.kselabs.alpha.MemberEditAdp;
 import com.kselabs.alpha.R;
 import com.kselabs.alpha.objects.CategoryItem;
 import com.kselabs.alpha.objects.ListItem;
@@ -79,7 +79,7 @@ public class HomeFrag extends Fragment {
         final FloatingActionButton fabAddItem = popupDialog.findViewById(R.id.fab_AddItem);
 
         LinearLayoutManager itemsLayoutManager;
-        final MemberEditAdpt itemsAdp;
+        final MemberEditAdp itemsAdp;
         itemsArrayListGroup = new ArrayList<>();
 
         tvName.setText(arrayListGroup.get(position).getStrCatName());
@@ -87,7 +87,7 @@ public class HomeFrag extends Fragment {
             itemsArrayListGroup = arrayListGroup.get(position).getListItems();     //Add all items from the category into the popup items
         }
 
-        itemsAdp = new MemberEditAdpt(itemsArrayListGroup);
+        itemsAdp = new MemberEditAdp(itemsArrayListGroup);
         itemsLayoutManager = new LinearLayoutManager(getContext());
         items.setLayoutManager(itemsLayoutManager);
         items.setAdapter(itemsAdp);
@@ -124,7 +124,7 @@ public class HomeFrag extends Fragment {
      * @param listItem edit list
      * @param itemsAdp edit adapter
      */
-    private void addNewItem(ListItem listItem, MemberEditAdpt itemsAdp, FloatingActionButton fabAddItem, RecyclerView items) {
+    private void addNewItem(ListItem listItem, MemberEditAdp itemsAdp, FloatingActionButton fabAddItem, RecyclerView items) {
         itemsArrayListGroup.add(listItem);
         itemsAdp.notifyItemInserted(itemsArrayListGroup.size());
         items.scrollToPosition(itemsArrayListGroup.size() - 1);
