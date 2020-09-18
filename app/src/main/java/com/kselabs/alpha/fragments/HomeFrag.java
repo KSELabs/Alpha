@@ -26,6 +26,7 @@ import com.kselabs.alpha.objects.ListItem;
 import java.util.ArrayList;
 
 public class HomeFrag extends Fragment {
+    private Dialog popupDialog;
     private static final String TAG = "HomeFrag";
     private RecyclerView groups;
     private ArrayList<CategoryItem> arrayListGroup;
@@ -36,16 +37,16 @@ public class HomeFrag extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-
+        popupDialog = new Dialog(getActivity());
         groups = v.findViewById(R.id.recycleView);
         arrayListGroup = new ArrayList<>();
 
 
-        //Initialising Arraylist for each category
+        //Initialising ArrayList for each category
         for (int i = 1; i <= 2; i++) {
             ArrayList<ListItem> arrayListMember = new ArrayList<>();
-            //Initialising Arraylist for each item
-            for (int a = 1; a <= 1; a++) {
+            //Initialising ArrayList for each item
+            for (int a = 1; a <= 3; a++) {
                 arrayListMember.add(new ListItem("ListItem " + a + " Title", "ListItem Description ", 12.00));
             }
             arrayListGroup.add(new CategoryItem("CategoryItem " + i, arrayListMember));
@@ -58,6 +59,50 @@ public class HomeFrag extends Fragment {
         groups.setLayoutManager(layoutManager);
 
         groups.setAdapter(groupAdp);
+
+        groupAdp.setOnItemClickListener(new GroupAdp.OnItemClickListener() {
+            @Override
+            public void onItemAddClick(int position) {
+                showEditCategoryPopup(position);
+            }
+        });
         return v;
+    }
+
+    /**
+     * responsible for displaying the popup for adding new items in a category
+     *
+     * @param position  group position
+     */
+    private void showEditCategoryPopup(final int position) {
+        popupDialog.setContentView(R.layout.edit_category_popup);
+
+        ImageView ivClose = popupDialog.findViewById(R.id.iv_close);
+        Button bSave = popupDialog.findViewById(R.id.b_save);
+
+        ImageView ivLogo = popupDialog.findViewById(R.id.iv_logo);
+        final TextView etItemName = popupDialog.findViewById(R.id.et_item_name);
+        final TextView etItemDescription = popupDialog.findViewById(R.id.et_item_description);
+        final TextView etPrice = popupDialog.findViewById(R.id.et_price);
+
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupDialog.dismiss();
+            }
+        });
+
+        bSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                arrayListGroup.get(position).getListItems().add(new ListItem(etItemName.getText().toString(),
+                        etItemDescription.getText().toString(), Double.parseDouble(etPrice.getText().toString())));
+                groupAdp.notifyItemInserted(arrayListGroup.get(position).getListItems().size());
+                popupDialog.dismiss();
+            }
+        });
+
+        popupDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupDialog.show();
     }
 }

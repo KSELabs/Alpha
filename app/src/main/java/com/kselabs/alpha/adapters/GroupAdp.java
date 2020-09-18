@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kselabs.alpha.R;
 import com.kselabs.alpha.objects.CategoryItem;
 import com.kselabs.alpha.objects.ListItem;
@@ -23,19 +25,16 @@ import java.util.ArrayList;
 
 //This is the adapter for the Categories in the recycler view found in the Home fragment
 public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
+    private static final String TAG = "GroupAdp";
     private Activity activity;
     private ArrayList<CategoryItem> arrayListGroup;
     private MemberAdp adapterMember;
     private Dialog popupDialog;
 
-    public MemberAdp getAdapterMember() {
-        return adapterMember;
-    }
-
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemEditClick(int position);
+        void onItemAddClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -61,7 +60,7 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
         popupDialog = new Dialog(activity);
         holder.tvName.setText(arrayListGroup.get(gPosition).getStrCatName());
 
-        MemberAdp adapterMember = new MemberAdp(arrayListGroup.get(gPosition).getListItems());
+        adapterMember = new MemberAdp(arrayListGroup.get(gPosition).getListItems());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
 
@@ -85,6 +84,7 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvTitle;
         RecyclerView rvMember;
+        FloatingActionButton fabAddItem;
 
 
         public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
@@ -92,14 +92,15 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
             tvName = itemView.findViewById(R.id.tv_name);
             tvTitle = itemView.findViewById(R.id.tv_title);
             rvMember = itemView.findViewById(R.id.rv_member);
+            fabAddItem = itemView.findViewById(R.id.fab_addItem);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            fabAddItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            listener.onItemEditClick(position);
+                            listener.onItemAddClick(position);
                         }
                     }
                 }
@@ -120,13 +121,13 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
         Button bSave = popupDialog.findViewById(R.id.b_save);
 
         ImageView ivLogo = popupDialog.findViewById(R.id.iv_logo);
-        TextView etItemName = popupDialog.findViewById(R.id.et_item_name);
-        TextView etItemDescription = popupDialog.findViewById(R.id.et_item_description);
-        TextView etPrice = popupDialog.findViewById(R.id.et_price);
+        final TextView etItemName = popupDialog.findViewById(R.id.et_item_name);
+        final TextView etItemDescription = popupDialog.findViewById(R.id.et_item_description);
+        final TextView etPrice = popupDialog.findViewById(R.id.et_price);
 
         etItemName.setText(arrayListGroup.get(gPosition).getListItems().get(position).getStrTitle());
         etItemDescription.setText(arrayListGroup.get(gPosition).getListItems().get(position).getStrTitle());
-        etPrice.setText(String.valueOf(arrayListGroup.get(gPosition).getListItems().get(position).getStrDescription()));
+        etPrice.setText(String.valueOf(arrayListGroup.get(gPosition).getListItems().get(position).getDblPrice()));
 
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +139,14 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                arrayListGroup.get(gPosition).getListItems().get(position).setStrTitle(etItemName.getText().toString());
+                arrayListGroup.get(gPosition).getListItems().get(position).setStrDescription(etItemDescription.getText().toString());
+                arrayListGroup.get(gPosition).getListItems().get(position).setDblPrice(Double.parseDouble(etPrice.getText().toString()));
+
+                Log.d(TAG, "onClick: ");
+
+                adapterMember.notifyItemChanged(position);
+
                 popupDialog.dismiss();
             }
         });

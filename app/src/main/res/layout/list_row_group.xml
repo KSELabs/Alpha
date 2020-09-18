@@ -35,7 +35,7 @@
             tools:listitem="@layout/lst_row_member" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_AddItem"
+            android:id="@+id/fab_addItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
