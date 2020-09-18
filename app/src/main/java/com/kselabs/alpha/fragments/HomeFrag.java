@@ -47,7 +47,7 @@ public class HomeFrag extends Fragment {
             ArrayList<ListItem> arrayListMember = new ArrayList<>();
             //Initialising ArrayList for each item
             for (int a = 1; a <= 3; a++) {
-                arrayListMember.add(new ListItem("ListItem " + a + " Title", "ListItem Description ", 12.00));
+                arrayListMember.add(new ListItem("List Item " + a + " Title", "ListItem Description ", 12.00));
             }
             arrayListGroup.add(new CategoryItem("CategoryItem " + i, arrayListMember));
         }

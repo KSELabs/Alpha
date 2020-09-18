@@ -142,10 +142,7 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
                 arrayListGroup.get(gPosition).getListItems().get(position).setStrTitle(etItemName.getText().toString());
                 arrayListGroup.get(gPosition).getListItems().get(position).setStrDescription(etItemDescription.getText().toString());
                 arrayListGroup.get(gPosition).getListItems().get(position).setDblPrice(Double.parseDouble(etPrice.getText().toString()));
-
-                Log.d(TAG, "onClick: ");
-
-                adapterMember.notifyItemChanged(position);
+                notifyItemChanged(position);
 
                 popupDialog.dismiss();
             }
