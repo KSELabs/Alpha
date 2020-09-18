@@ -2,6 +2,7 @@ package com.kselabs.alpha.fragments;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,16 +15,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.kselabs.alpha.adapters.GroupAdp;
 import com.kselabs.alpha.R;
 import com.kselabs.alpha.objects.CategoryItem;
 import com.kselabs.alpha.objects.ListItem;
 
 import java.util.ArrayList;
+
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class HomeFrag extends Fragment {
     private Dialog popupDialog;
@@ -66,13 +73,55 @@ public class HomeFrag extends Fragment {
                 showEditCategoryPopup(position);
             }
         });
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(groups);
+
         return v;
     }
+
+    private CategoryItem deletedCatItem = null;
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                              @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            final int position = viewHolder.getAdapterPosition();
+            deletedCatItem = arrayListGroup.get(position);
+            arrayListGroup.remove(position);
+            groupAdp.notifyItemRemoved(position);
+            Snackbar.make(groups, deletedCatItem.getStrCatName() + " deleted", BaseTransientBottomBar.LENGTH_LONG)
+                    .setAction("Undo", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            arrayListGroup.add(position, deletedCatItem);
+                            groupAdp.notifyItemInserted(position);
+
+                        }
+                    }).show();
+        }
+
+        @Override
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(getActivity(), R.color.Red))
+                    .addSwipeLeftActionIcon(R.drawable.delete_icon)
+                    .create()
+                    .decorate();
+
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        }
+    };
+
 
     /**
      * responsible for displaying the popup for adding new items in a category
      *
-     * @param position  group position
+     * @param position group position
      */
     private void showEditCategoryPopup(final int position) {
         popupDialog.setContentView(R.layout.edit_category_popup);

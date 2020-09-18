@@ -28,7 +28,6 @@ public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
         this.listener = listener;
     }
 
-
     public MemberAdp(ArrayList<ListItem> arrayListMember) {
         this.arrayListMember = arrayListMember;
     }
