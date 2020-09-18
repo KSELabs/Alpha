@@ -1,13 +1,15 @@
-package com.kselabs.alpha;
+package com.kselabs.alpha.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kselabs.alpha.R;
 import com.kselabs.alpha.objects.ListItem;
 
 import java.util.ArrayList;
@@ -16,6 +18,16 @@ import java.util.ArrayList;
 public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
 
     ArrayList<ListItem> arrayListMember;
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemEditClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
 
     public MemberAdp(ArrayList<ListItem> arrayListMember) {
         this.arrayListMember = arrayListMember;
@@ -26,7 +38,7 @@ public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.lst_row_member, parent, false);
-        return new MemberAdp.ViewHolder(view);
+        return new ViewHolder(view, listener);
     }
 
     @Override
@@ -42,14 +54,29 @@ public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
         return arrayListMember.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle,tvDescription, tvPrice;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvTitle, tvDescription, tvPrice;
+        ImageView ivEdit;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tv_title);
             tvDescription = itemView.findViewById(R.id.tv_description);
             tvPrice = itemView.findViewById(R.id.tv_price);
+            ivEdit = itemView.findViewById(R.id.iv_edit);
+
+            ivEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemEditClick(position);
+                        }
+                    }
+                }
+            });
+
         }
     }
 }

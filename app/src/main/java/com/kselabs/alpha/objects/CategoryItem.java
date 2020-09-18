@@ -6,8 +6,9 @@ public class CategoryItem {
     private String strCatName;
     private ArrayList<ListItem> ListItems;
 
-    public CategoryItem(String strCatName) {
+    public CategoryItem(String strCatName, ArrayList<ListItem> listItems) {
         this.strCatName = strCatName;
+        ListItems = listItems;
     }
 
     public String getStrCatName() {
@@ -23,6 +24,6 @@ public class CategoryItem {
     }
 
     public void setListItems(ArrayList<ListItem> listItems) {
-        this.ListItems = listItems;
+        ListItems = listItems;
     }
 }
