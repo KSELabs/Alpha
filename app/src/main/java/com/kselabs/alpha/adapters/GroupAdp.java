@@ -2,6 +2,7 @@ package com.kselabs.alpha.adapters;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
@@ -13,22 +14,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.kselabs.alpha.R;
 import com.kselabs.alpha.objects.CategoryItem;
 import com.kselabs.alpha.objects.ListItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 //This is the adapter for the Categories in the recycler view found in the Home fragment
 public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
     private static final String TAG = "GroupAdp";
     private Activity activity;
     private ArrayList<CategoryItem> arrayListGroup;
+    private ArrayList<ListItem> arrayListItem;
     private MemberAdp adapterMember;
     private Dialog popupDialog;
 
@@ -61,13 +69,17 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
         popupDialog = new Dialog(activity);
         holder.tvName.setText(arrayListGroup.get(gPosition).getStrCatName());
 
-        adapterMember = new MemberAdp(arrayListGroup.get(gPosition).getListItems());
+        arrayListItem = arrayListGroup.get(gPosition).getListItems();
+        adapterMember = new MemberAdp(arrayListItem);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
 
         holder.rvMember.setLayoutManager(linearLayoutManager);
         holder.rvMember.setHasFixedSize(false);
         holder.rvMember.setAdapter(adapterMember);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(holder.rvMember);
 
         adapterMember.setOnItemClickListener(new MemberAdp.OnItemClickListener() {
             @Override
@@ -152,4 +164,23 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
         popupDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupDialog.show();
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN |
+            ItemTouchHelper.START | ItemTouchHelper.END, 0) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                              @NonNull RecyclerView.ViewHolder target) {
+            int fromPosition = viewHolder.getAdapterPosition();
+            int toPosition = target.getAdapterPosition();
+
+            Collections.swap(arrayListItem, fromPosition, toPosition);
+            recyclerView.getAdapter().notifyItemMoved(fromPosition,toPosition);
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+        }
+    };
+
 }

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/ripple_effect_white"
     android:gravity="center"
     android:orientation="horizontal"
     android:padding="2dp">
@@ -22,24 +23,24 @@
         android:id="@+id/iv_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:background="@drawable/ripple_effect_white"
         android:contentDescription="@string/close"
         android:padding="5dp"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/edit_icon"
-        android:layout_alignParentRight="true" />
+        android:src="@drawable/edit_icon" />
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_toStartOf="@id/iv_edit"
-        android:layout_toEndOf="@id/iv_logo"
         android:layout_marginLeft="8dp"
-        android:orientation="vertical"
+        android:layout_toStartOf="@id/iv_edit"
         android:layout_toLeftOf="@id/iv_edit"
-        android:layout_toRightOf="@id/iv_logo">
+        android:layout_toEndOf="@id/iv_logo"
+        android:layout_toRightOf="@id/iv_logo"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_title"
