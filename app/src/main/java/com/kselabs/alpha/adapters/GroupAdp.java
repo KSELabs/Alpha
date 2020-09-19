@@ -127,7 +127,7 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
         final TextView etPrice = popupDialog.findViewById(R.id.et_price);
 
         etItemName.setText(arrayListGroup.get(gPosition).getListItems().get(position).getStrTitle());
-        etItemDescription.setText(arrayListGroup.get(gPosition).getListItems().get(position).getStrTitle());
+        etItemDescription.setText(arrayListGroup.get(gPosition).getListItems().get(position).getStrDescription());
         etPrice.setText(String.valueOf(arrayListGroup.get(gPosition).getListItems().get(position).getDblPrice()));
 
         ivClose.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +143,7 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
                 arrayListGroup.get(gPosition).getListItems().get(position).setStrTitle(etItemName.getText().toString());
                 arrayListGroup.get(gPosition).getListItems().get(position).setStrDescription(etItemDescription.getText().toString());
                 arrayListGroup.get(gPosition).getListItems().get(position).setDblPrice(Double.parseDouble(etPrice.getText().toString()));
-                notifyItemChanged(position);
+                notifyItemChanged(gPosition);
 
                 popupDialog.dismiss();
             }
