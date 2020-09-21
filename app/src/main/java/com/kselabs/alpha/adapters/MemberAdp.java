@@ -45,7 +45,7 @@ public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
         holder.tvTitle.setText(arrayListMember.get(position).getStrTitle());
         holder.tvDescription.setText(arrayListMember.get(position).getStrDescription());
         holder.tvPrice.setText(String.valueOf(arrayListMember.get(position).getDblPrice()));
-
+        holder.ivEdit.setImageURI(arrayListMember.get(position).getUriImage());
     }
 
     @Override

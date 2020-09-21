@@ -36,4 +36,7 @@ dependencies {
 
     //recyclerview swipe decorator
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.3'
+
+    //Image crop library
+    implementation 'com.github.yalantis:ucrop:2.2.6-native'
 }

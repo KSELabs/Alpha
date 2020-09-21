@@ -2,10 +2,8 @@ package com.kselabs.alpha.adapters;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,22 +12,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.kselabs.alpha.R;
 import com.kselabs.alpha.objects.CategoryItem;
 import com.kselabs.alpha.objects.ListItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 //This is the adapter for the Categories in the recycler view found in the Home fragment
 public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
@@ -98,7 +91,6 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
         TextView tvName, tvTitle;
         RecyclerView rvMember;
         FloatingActionButton fabAddItem;
-
 
         public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
