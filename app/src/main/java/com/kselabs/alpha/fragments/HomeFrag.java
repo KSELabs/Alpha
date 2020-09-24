@@ -190,6 +190,7 @@ public class HomeFrag extends Fragment {
                 }
                 categoryItem.getListItems().add(new ListItem(tempImage, itemName, itemDescription, itemPrice, position));
                 arrayListGroup.get(position).getMemberAdp().notifyItemInserted(arrayListGroup.get(position).getListItems().size());
+
                 tempImage = null;
                 popupDialog.dismiss();
             }
