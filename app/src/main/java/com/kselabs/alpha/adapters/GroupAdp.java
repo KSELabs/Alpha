@@ -80,6 +80,8 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
                 showEditCategoryPopup(gPosition, position);
             }
         });
+
+        arrayListGroup.get(gPosition).setMemberAdp(adapterMember);
     }
 
     @Override

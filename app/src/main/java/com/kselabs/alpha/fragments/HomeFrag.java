@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +34,13 @@ import com.kselabs.alpha.adapters.GroupAdp;
 import com.kselabs.alpha.R;
 import com.kselabs.alpha.objects.CategoryItem;
 import com.kselabs.alpha.objects.ListItem;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+import com.yalantis.ucrop.UCrop;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -169,12 +175,21 @@ public class HomeFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 CategoryItem categoryItem = arrayListGroup.get(position);
-                String itemName = etItemName.getText().toString();
-                String itemDescription = etItemDescription.getText().toString();
-                double itemPrice = Double.parseDouble(etPrice.getText().toString());
+                String itemName = " ";
+                String itemDescription = " ";
+                double itemPrice = 0.0;
 
+                if (!etItemName.getText().toString().isEmpty()) {
+                    itemName = etItemName.getText().toString();
+                }
+                if (!etItemDescription.getText().toString().isEmpty()) {
+                    itemDescription = etItemDescription.getText().toString();
+                }
+                if (!etPrice.getText().toString().isEmpty()) {
+                    itemPrice = Double.parseDouble(etPrice.getText().toString());
+                }
                 categoryItem.getListItems().add(new ListItem(tempImage, itemName, itemDescription, itemPrice, position));
-                groupAdp.notifyItemInserted(categoryItem.getListItems().size());
+                arrayListGroup.get(position).getMemberAdp().notifyItemInserted(arrayListGroup.get(position).getListItems().size());
                 tempImage = null;
                 popupDialog.dismiss();
             }
@@ -227,9 +242,14 @@ public class HomeFrag extends Fragment {
      * Open intent to pick image from gallery
      */
     private void PickImageFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
+/*        Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
-        startActivityForResult(intent, IMAGE_PICK_CODE);
+        startActivityForResult(intent, IMAGE_PICK_CODE);*/
+        CropImage.activity()
+                .setAspectRatio(1, 1)
+                .setRequestedSize(200, 250)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(getContext(), this);
     }
 
     @Override
@@ -245,9 +265,18 @@ public class HomeFrag extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if ((resultCode == RESULT_OK) && (requestCode == IMAGE_PICK_CODE)) {
-            tempImage = data.getData();
-            showNewItemPopup(tempItem.getIntPosition());
+        Log.d(TAG, "onActivityResult: Called");
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            Log.d(TAG, "onActivityResult: Image found");
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                tempImage = result.getUri();
+                showNewItemPopup(tempItem.getIntPosition());
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+
+                Log.d(TAG, "onActivityResult: " + error);
+            }
         }
     }
 }

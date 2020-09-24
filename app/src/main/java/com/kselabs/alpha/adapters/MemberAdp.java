@@ -45,7 +45,10 @@ public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
         holder.tvTitle.setText(arrayListMember.get(position).getStrTitle());
         holder.tvDescription.setText(arrayListMember.get(position).getStrDescription());
         holder.tvPrice.setText(String.valueOf(arrayListMember.get(position).getDblPrice()));
-        holder.ivEdit.setImageURI(arrayListMember.get(position).getUriImage());
+        if (arrayListMember.get(position).getUriImage()!=null){
+            holder.ivLogo.setImageResource(0);
+            holder.ivLogo.setImageURI(arrayListMember.get(position).getUriImage());
+        }
     }
 
     @Override
@@ -55,7 +58,7 @@ public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvDescription, tvPrice;
-        ImageView ivEdit;
+        ImageView ivEdit, ivLogo;
 
         public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -63,6 +66,7 @@ public class MemberAdp extends RecyclerView.Adapter<MemberAdp.ViewHolder> {
             tvDescription = itemView.findViewById(R.id.tv_description);
             tvPrice = itemView.findViewById(R.id.tv_price);
             ivEdit = itemView.findViewById(R.id.iv_edit);
+            ivLogo = itemView.findViewById(R.id.iv_logo);
 
             ivEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
