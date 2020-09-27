@@ -2,6 +2,7 @@ package com.kselabs.alpha.adapters;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.LauncherActivity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -124,6 +125,7 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
     private void showEditCategoryPopup(final int gPosition, final int position) {
         popupDialog.setContentView(R.layout.edit_category_popup);
 
+        ListItem listItem = arrayListGroup.get(gPosition).getListItems().get(position);
         ImageView ivClose = popupDialog.findViewById(R.id.iv_close);
         Button bSave = popupDialog.findViewById(R.id.b_save);
 
@@ -132,9 +134,12 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
         final TextView etItemDescription = popupDialog.findViewById(R.id.et_item_description);
         final TextView etPrice = popupDialog.findViewById(R.id.et_price);
 
-        etItemName.setText(arrayListGroup.get(gPosition).getListItems().get(position).getStrTitle());
-        etItemDescription.setText(arrayListGroup.get(gPosition).getListItems().get(position).getStrDescription());
-        etPrice.setText(String.valueOf(arrayListGroup.get(gPosition).getListItems().get(position).getDblPrice()));
+        etItemName.setText(listItem.getStrTitle());
+        etItemDescription.setText(listItem.getStrDescription());
+        etPrice.setText(String.valueOf(listItem.getDblPrice()));
+        if (listItem.getUriImage() != null) {
+            ivLogo.setImageURI(listItem.getUriImage());
+        }
 
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,7 +173,7 @@ public class GroupAdp extends RecyclerView.Adapter<GroupAdp.ViewHolder> {
             int toPosition = target.getAdapterPosition();
 
             Collections.swap(arrayListItem, fromPosition, toPosition);
-            recyclerView.getAdapter().notifyItemMoved(fromPosition,toPosition);
+            recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
             return false;
         }
 
